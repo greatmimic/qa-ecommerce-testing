@@ -1,0 +1,33 @@
+Test Cases,Preconditions,Test Data,Steps,Expected,Actual,Priority,Severity
+TC-LOGIN-001 - Valid login,User is on SauceDemo login page. Valid credentials are available.,"Username: standard_user
+Password: secret_sauce","1. Navigate to https://www.saucedemo.com/
+2. Enter valid username
+3. Enter valid password
+4. Click 'Login' button","- User is successfully authenticated
+- User is redirected to the inventory page
+- Product listings are visible
+- URL contains '/inventory.html'","-User is authenticated
+-User is redirected to inventory page
+- Product listings are visible
+- URL contains /inventory.html
+",High,Critical
+TC-LOGIN-002 - Invalid password,"User is on SauceDemo login page.
+Invalid password needs to be put in.","Username: standard_user
+Invalid password","1. Navigate to https://www.saucedemo.com/
+2. Enter valid username
+3. Enter invalid password 
+4. Click 'Login' button","- User is not authenticated
+- Page gives user error
+- Page will let user to try again","-User is unable to login
+- Page lets user know the credentials are invalid
+- Page lets user try again infinitely
+
+",High,Critical
+Invalid username,,,,,,,
+Empty fields,,,,,,,
+Locked User,,,,,,,
+Products load,,,,,,,
+Sorting works,,,,,,,
+Add item,,,,,,,
+Remove Item,,,,,,,
+Complete purchase,,,,,,,
