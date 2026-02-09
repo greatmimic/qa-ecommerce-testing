@@ -1,4 +1,4 @@
-Test Cases,Preconditions,Test Data,Steps,Expected,Actual,Priority,Severity
+Test Cases,Preconditions,Test Data,Steps,Expected,Actual,Result,Priority,Severity
 TC-LOGIN-001 - Valid login,User is on SauceDemo login page. Valid credentials are available.,"Username: standard_user
 Password: secret_sauce","1. Navigate to https://www.saucedemo.com/
 2. Enter valid username
@@ -10,7 +10,7 @@ Password: secret_sauce","1. Navigate to https://www.saucedemo.com/
 -User is redirected to inventory page
 - Product listings are visible
 - URL contains /inventory.html
-",High,Critical
+",Pass,N/A,N/A
 TC-LOGIN-002 - Invalid password,"User is on SauceDemo login page.
 Invalid password needs to be put in.","Username: standard_user
 Invalid password","1. Navigate to https://www.saucedemo.com/
@@ -20,14 +20,53 @@ Invalid password","1. Navigate to https://www.saucedemo.com/
 - Page gives user error
 - Page will let user to try again","-User is unable to login
 - Page lets user know the credentials are invalid
-- Page lets user try again infinitely
+- Page lets user try again
 
-",High,Critical
-Invalid username,,,,,,,
-Empty fields,,,,,,,
-Locked User,,,,,,,
-Products load,,,,,,,
-Sorting works,,,,,,,
-Add item,,,,,,,
-Remove Item,,,,,,,
-Complete purchase,,,,,,,
+",Pass,N/A,N/A
+TC-LOGIN-003 - Invalid username,User is on SauceDemo login page. Invalid username must be put in.,"Username: Invalid username
+Password: secret_sauce","1. Navigate to https://www.saucedemo.com/
+2. Enter invalid username
+3. Enter valid password 
+4. Click 'Login' button","- User is not authenticated
+- Page gives user invalid username error
+- Page lets user try agian","-User is unable to login
+- Page lets user know the credentials are invalid
+- Page lets user try again
+
+",Pass,N/A,N/A
+TC-LOGIN-004 - Empty login fields,User is on SauceDemo login page. The credential fields are empty when login button is clicked.,N/A,"1. Navigate to https://www.saucedemo.com/
+2. Enter either or both no username, no password
+3. Click 'Login' button","- User is not authenticated
+- Error message is given to user to enter credentials
+- Page lets user try again","-User is unable to login
+- Page lets user know the credentials are invalid
+- Page lets user try again
+
+",Pass,N/A,N/A
+TC-LOGIN-005 - Locked user,User is on SauceDemo login page. The credentials used is for a locked account.,"Username: locked_out_user
+Password: secret_sauce","1. Navigate to https://www.saucedemo.com/
+2. Enter locked out username
+3. Enter valid password 
+4. Click 'Login' button","- User is not authenticated
+- Page lets user know their account is locked.
+- Page will let user to try again with different credentials.","-User is unable to login
+- Page lets user know the account is locked.
+- Page lets user try again
+
+",pass,N/A,N/A
+TC-INVENTORY-001 - Products load,User is logged in SauceDemo page and is at /inventory.html,"Username: problem_user
+Password: secret_sauce","1. Navigate to https://www.saucedemo.com/
+2. Login with credentials
+3. Arrive at /inventory.html 
+","- User is able to see thumbnails and titles for all products
+- Thumbnails and titles belong correctly to their descriptions
+","- Thumbnails are not valid to their item titles and descriptions
+- Description for Sauce Labs Backpack contains unexecuted method within descriptions instead of an output text
+- Title for T-Shirt (RED) contains unexecuted method instead of output text",Fail,High,Critical
+TC-INVENTORY-002 - Sorting works,User is logged in SauceDemo page and is at /inventory.html,"Username: problem_user
+Password: secret_sauce","1. At /inventory.html
+2. Click on four sort button, A-Z, Z-A, Price High-Low, Low-High",- Items are sorted per their sorting conditions,- Sorting works as intended and is sorted per sorting conditions,Pass,N/A,N/A
+TC-CART-001 - Add item,,,,,,,,
+TC-CART-002 - Remove Item,,,,,,,,
+Complete purchase,,,,,,,,
+HTML tempering is blocked,,,,,,,,
