@@ -1,0 +1,23 @@
+{
+  "name": "qa-ecommerce-testing",
+  "version": "1.0.0",
+  "description": "This Repository will contain my efforts to transition from Hardware QA into Software QA.",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/greatmimic/qa-ecommerce-testing.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/greatmimic/qa-ecommerce-testing/issues"
+  },
+  "homepage": "https://github.com/greatmimic/qa-ecommerce-testing#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "@types/node": "^25.3.0"
+  }
+}
