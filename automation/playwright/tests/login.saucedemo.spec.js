@@ -10,7 +10,6 @@ import { test, expect } from '@playwright/test';
 test('TC-LOGIN-001', async ({ page }) => {
   await page.goto('https://www.saucedemo.com/');
   await expect(page).toHaveURL('https://www.saucedemo.com/');
-  await page.pause();
   await page.locator('[data-test="username"]').click();
   await page.locator('[data-test="username"]').fill('standard_user');
   await page.locator('[data-test="password"]').click();
@@ -33,13 +32,15 @@ test('TC-LOGIN-001', async ({ page }) => {
   await expect(page.locator('[data-test="inventory-item-description"]').nth(4)).toBeVisible();
   await expect(page.locator('[data-test="item-3-img-link"]')).toBeVisible();
   await expect(page.locator('[data-test="inventory-item-description"]').nth(5)).toBeVisible();
-  await page.pause();
 });
 
 // TC-LOGIN-002: Verify that a user cannot log in with invalid credentials and sees an error message.
-test('TC-LOGIN-002, 003', async ({ page }) => {
+test('TC-LOGIN-002, 003, 004', async ({ page }) => {
   await page.goto('https://www.saucedemo.com/');
-  await page.pause();
+  await page.locator('[data-test="login-button"]').click();
+  await expect(page.locator('[data-test="error"]')).toBeVisible();
+  await expect(page.locator('[data-test="error"]')).toContainText('Epic sadface: Username is required');
+  await page.reload();
   await page.locator('[data-test="username"]').click();
   await page.locator('[data-test="username"]').fill('standard_user');
   await page.locator('[data-test="password"]').click();
@@ -55,5 +56,40 @@ test('TC-LOGIN-002, 003', async ({ page }) => {
   await page.locator('[data-test="login-button"]').click();
   await expect(page.locator('[data-test="error"]')).toBeVisible();
   await expect(page.locator('[data-test="error"]')).toContainText('Epic sadface: Username and password do not match any user in this service');
-  await page.pause();
+});
+
+// TC-LOGIN-005: Verify that a locked out user cannot log in and sees an appropriate error message.
+test('TC-LOGIN-005', async ({ page }) => {
+  await page.goto('https://www.saucedemo.com/');
+  await page.locator('[data-test="username"]').click();
+  await page.locator('[data-test="username"]').fill('locked_out_user');
+  await page.locator('[data-test="password"]').click();
+  await page.locator('[data-test="password"]').fill('secret_sauce');
+  await page.locator('[data-test="login-button"]').click();
+  await expect(page.locator('[data-test="error"]')).toBeVisible();
+  await expect(page.locator('[data-test="error"]')).toContainText('Epic sadface: Sorry, this user has been locked out.');
+});
+
+// Takes snapshot of inventory list for golden baseline
+test('Assert snapshot of golden baseline', async ({ page }) => {
+  await page.goto('https://www.saucedemo.com/');
+  await page.locator('[data-test="username"]').click(); 
+  await page.locator('[data-test="username"]').fill('standard_user');
+  await page.locator('[data-test="password"]').click();
+  await page.locator('[data-test="password"]').fill('secret_sauce');
+  await page.locator('[data-test="login-button"]').click();
+  await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html');
+  await expect(page.locator('[data-test="inventory-list"]')).toHaveScreenshot('inventory-list.png');
+});
+
+// TC-INVENTORY-001: Verify that the inventory list page matches the golden baseline screenshot. Expected to fail.
+test('TC-INVENTORY-001', async ({ page }) => {
+  await page.goto('https://www.saucedemo.com/');
+  await page.locator('[data-test="username"]').click();
+  await page.locator('[data-test="username"]').fill('problem_user');
+  await page.locator('[data-test="password"]').click();
+  await page.locator('[data-test="password"]').fill('secret_sauce');
+  await page.locator('[data-test="login-button"]').click();
+  await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html');
+  await expect(page.locator('[data-test="inventory-list"]'), 'Inventory list screenshot does not match!').toHaveScreenshot('inventory-list.png');
 });
