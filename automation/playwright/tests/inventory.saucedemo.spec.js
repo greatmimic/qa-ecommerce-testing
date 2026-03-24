@@ -75,4 +75,7 @@ test('TC-INVENTORY-005/Price (High to Low)', async () => {
   const sortedPrices = [...productPrices].sort((a, b) => b - a);
   expect(productPrices).toEqual(sortedPrices);
 });
+
+
+
 });
