@@ -28,6 +28,7 @@ This Repository will contain my efforts to transition from Hardware QA into Soft
 
 
 ## Key Achievements
-
+- Wrote 12 test cases covering functional, negative, and UI scenarios on saucedemo.com; documented 3–5 defects with reproduction steps and severity in a structured spreadsheet.
+- Built a fully working Playwright automation suite that runs all 12 manual test cases, reducing regression testing to a single script execution.
 
 Testing was performed on: https://www.saucedemo.com/
