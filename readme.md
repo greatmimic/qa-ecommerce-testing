@@ -1,6 +1,6 @@
 #Project Overivew
 
-This Repository will contain my efforts to transition from Hardware QA into Software QA.
+This Repository contains introductory project using Playwright to automate manual test cases on an e-commerce website.
 
 ## Tools & Technologies
 
